@@ -411,6 +411,7 @@ a   *        Warning: when using this in a loop be sure to call trigger() at end
    */
   bool publishCone(const Eigen::Isometry3d& pose, double angle, colors color = TRANSLUCENT, double scale = 1.0);
   bool publishCone(const geometry_msgs::Pose& pose, double angle, colors color = TRANSLUCENT, double scale = 1.0);
+  bool publishCone(const geometry_msgs::Pose& pose, double angle, Eigen::Vector3f color, double scale = 1.0);
 
   /**
    * \brief Display the XY plane of a given pose
