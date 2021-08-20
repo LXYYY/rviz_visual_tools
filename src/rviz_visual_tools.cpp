@@ -361,8 +361,11 @@ colors RvizVisualTools::getRandColor() {
   const int rand_num = iRand(0, all_rand_colors_.size() - 1);
   return all_rand_colors_[rand_num];
 }
-
 std_msgs::ColorRGBA RvizVisualTools::getColor(colors color) const {
+  return getColor(color, alpha_);
+}
+
+std_msgs::ColorRGBA RvizVisualTools::getColor(colors color, float alpha) {
   std_msgs::ColorRGBA result;
 
   switch (color) {
@@ -370,37 +373,37 @@ std_msgs::ColorRGBA RvizVisualTools::getColor(colors color) const {
     result.r = 0.8;
     result.g = 0.1;
     result.b = 0.1;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case GREEN:
     result.r = 0.1;
     result.g = 0.8;
     result.b = 0.1;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case GREY:
     result.r = 0.9;
     result.g = 0.9;
     result.b = 0.9;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case DARK_GREY:
     result.r = 0.6;
     result.g = 0.6;
     result.b = 0.6;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case WHITE:
     result.r = 1.0;
     result.g = 1.0;
     result.b = 1.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case ORANGE:
     result.r = 1.0;
     result.g = 0.5;
     result.b = 0.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case TRANSLUCENT_LIGHT:
     result.r = 0.1;
@@ -424,31 +427,31 @@ std_msgs::ColorRGBA RvizVisualTools::getColor(colors color) const {
     result.r = 0.0;
     result.g = 0.0;
     result.b = 0.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case YELLOW:
     result.r = 1.0;
     result.g = 1.0;
     result.b = 0.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case BROWN:
     result.r = 0.597;
     result.g = 0.296;
     result.b = 0.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case PINK:
     result.r = 1.0;
     result.g = 0.4;
     result.b = 1;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case LIME_GREEN:
     result.r = 0.6;
     result.g = 1.0;
     result.b = 0.2;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case CLEAR:
     result.r = 1.0;
@@ -460,22 +463,22 @@ std_msgs::ColorRGBA RvizVisualTools::getColor(colors color) const {
     result.r = 0.597;
     result.g = 0.0;
     result.b = 0.597;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case CYAN:
     result.r = 0.0;
     result.g = 1.0;
     result.b = 1.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case MAGENTA:
     result.r = 1.0;
     result.g = 0.0;
     result.b = 1.0;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   case RAND:
-    result = createRandColor();
+    result = createRandColor(alpha);
     break;
   case DEFAULT:
     ROS_WARN_STREAM_NAMED(LOGNAME, "The 'DEFAULT' color should probably not "
@@ -486,7 +489,7 @@ std_msgs::ColorRGBA RvizVisualTools::getColor(colors color) const {
     result.r = 0.1;
     result.g = 0.1;
     result.b = 0.8;
-    result.a = alpha_;
+    result.a = alpha;
     break;
   }
 
@@ -566,6 +569,9 @@ std::string RvizVisualTools::scaleToString(scales scale) {
 }
 
 std_msgs::ColorRGBA RvizVisualTools::createRandColor() const {
+  return createRandColor(alpha_);
+}
+std_msgs::ColorRGBA RvizVisualTools::createRandColor(float alpha) {
   std_msgs::ColorRGBA result;
 
   const std::size_t MAX_ATTEMPTS = 20; // bound the performance
@@ -589,7 +595,7 @@ std_msgs::ColorRGBA RvizVisualTools::createRandColor() const {
   } while (result.r + result.g + result.b < 1.5); // 3 would be white
 
   // Set alpha value
-  result.a = alpha_;
+  result.a = alpha;
 
   return result;
 }

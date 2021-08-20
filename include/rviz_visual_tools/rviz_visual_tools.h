@@ -275,6 +275,7 @@ public:
    * \return the RGB message equivalent
    */
   std_msgs::ColorRGBA getColor(colors color) const;
+  static std_msgs::ColorRGBA getColor(colors color, float alpha);
 
   /** \brief Used by interfaces that do not directly depend on Rviz Visual Tools, such as OMPL */
   static colors intToRvizColor(std::size_t color);
@@ -290,6 +291,7 @@ public:
    * \return the RGB message of a random color
    */
   std_msgs::ColorRGBA createRandColor() const;
+ static std_msgs::ColorRGBA createRandColor(float alpha);
 
   /**
    * \brief Interpolate from [start, end] with value of size steps with current value count
